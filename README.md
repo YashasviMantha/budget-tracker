@@ -22,3 +22,14 @@ KEYWORDS = {
 }
 ```
 The `post_processing.py` script will create new columns for each category in the dict and add the `Debit` values of each transation everytime a `keyword` is present in the discription. I use this as an initial boost to segregate the transaction. While not all the transactions can be handeled, it does cover a major part of my lists. Ofcourse, the keywords can be imporved over time. 
+
+Then store all your statements in a singe directory. Like this:
+```
+statements
+  icici.xls
+  sbi.xlsx
+  hdfc_regelia.pdf
+  hdfc_neu.pdf
+```
+
+And use the `test.ipynb` to process. Names of the statements are used to detect the type of statement
