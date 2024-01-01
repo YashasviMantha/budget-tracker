@@ -6,7 +6,7 @@ A boring monthly task that I automated. Its a simple rule based system that weir
 For some reason the raw file is not redable. Convert the file to xlsx (from excel for example) and then use the parser.
 
 # ICICI Savings
-Buggy. 
+Works out of the box.
 
 # HDFC Credit Card Statements
 All the statements from HDFC cards are in a similar structure (thankfully). Because of the billing cycle problem, each month's statement will have previous months transactions as well. For now, this has to be manually corrected after the processing. 
