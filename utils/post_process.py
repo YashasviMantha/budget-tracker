@@ -69,10 +69,15 @@ def make_categories(df):
     for index, row in df.iterrows():
         for key, value in s3cret5.KEYWORDS.items():
             for word in value:
-                if word in row["Description"].lower():
-                    df.loc[index, key] = row['Debit']
-                    df.loc[index, 'Debit'] = np.nan
-                    break
+                try:
+                    if word in row["Description"].lower():
+                        df.loc[index, key] = row['Debit']
+                        df.loc[index, 'Debit'] = np.nan
+                        break
+                except AttributeError as e:
+                    continue
+
+
 
     return df
 

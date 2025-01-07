@@ -19,8 +19,16 @@ MAP_COLUMN = {
 
 
 def read_pdf(file_path):
-    pages = tabula.read_pdf(file_path, pages="all", stream=True, password=s3cret5.DOCUMENTS_PDF_PASSWORD_REGELIA)
-    return pages
+    passwords = s3cret5.DOCUMENTS_PDF_PASSWORD_REGELIA
+    for password in passwords:
+        try:
+            pages = tabula.read_pdf(file_path, pages="all", stream=True, password=password)
+            return pages
+        except Exception as e:
+            log.warning(f"could not extraxt text with tabula for Regelia, trying next password")
+            continue
+
+    log.error("could not extraxt text with tabula for Regelia, might be password issue")
 
 
 def get_transaction_data_cc(pages):
