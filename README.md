@@ -11,9 +11,15 @@ Works out of the box.
 # HDFC Credit Card Statements
 All the statements from HDFC cards are in a similar structure (thankfully). Because of the billing cycle problem, each month's statement will have previous months transactions as well. For now, this has to be manually corrected after the processing. 
 
+# SBI Cash Back card
+A bit unstable. But works out of box. The SBI guys seems to have changed their PDF generation mid of the year.
+
+# ICICI Amazon Card
+Work in progress
+
 # To start using it:
 Create the following files:
- - A `s3cret5.py` file in the root and add `DOCUMENTS_PDF_PASSWORD_REGELIA` and `DOCUMENTS_PDF_PASSWORD_TATA_NEU`. 
+ - A `s3cret5.py` file in the root and add `DOCUMENTS_PDF_PASSWORD_REGELIA` and `DOCUMENTS_PDF_PASSWORD_TATA_NEU` and other passwords. 
  - Add a `KEYWORDS` dict, for example:
 ```py
 KEYWORDS = {
