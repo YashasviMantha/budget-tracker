@@ -63,7 +63,7 @@ def get_transaction_data_cc(pages):
     return df
 
 def post_process_data(df):
-    df["Date"] = df["Date"].apply(lambda x: dt.strptime(x, "%d %b %y").strftime("%Y-%m-%d"))
+    df["Date"] = df["Date"].apply(lambda x: dt.strptime(x, "%d %b %y"))
 
     
     return(df)
