@@ -11,11 +11,10 @@ import s3cret5
 log = logger.get_module_logger(__name__)
 
 MAP_COLUMN = {
-        "Unnamed: 0": "Misc",
-        "Transaction Details": "Description",
-        "Amount ( ` )": "Amount",
-        "Unnamed: 1": "Type",
-        "Date": "Date",
+    "Transaction Details": "Description",
+    "Amount ( ` )": "Amount",
+    "Unnamed: 0": "Type",
+    "Date": "Date",
 }
 
 def read_pdf(file_path):
@@ -40,7 +39,7 @@ def get_transaction_data_cc(pages):
     # delete first row
     df = df.iloc[1:]
     # drop misc column
-    df.drop(columns=["Misc"], inplace=True)
+    # df.drop(columns=["Misc"], inplace=True)
 
 
     # drop values with NaN in Amount, Date and Type columns
