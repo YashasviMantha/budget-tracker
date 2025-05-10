@@ -48,10 +48,28 @@ def convert_dates_to_str(df):
     
 def clean_credit_zeros(df):
     for index, row in df.iterrows():
+        amount = row["Credit"]
+
         if(row['Credit'] == 0):
             df.loc[index, 'Credit'] = np.nan
 
     return(df)
+
+def clean_credit_cr(df):
+    for index, row in df.iterrows():
+        amount = row["Credit"]
+        if isinstance(amount, str):
+            amount = amount.lower().strip()
+            if len(amount):
+                amount = amount.replace(",", "").replace("cr", "")
+                df.loc[index, "Credit"] = float(amount)
+            else:
+                df.loc[index, "Credit"] = np.NaN
+        elif isinstance(amount, float) and amount == 0:
+            df.loc[index, "Credit"] = np.NaN
+
+    return df
+
 
 # def convert_debit_as_float(df):
 #     df['Debit'] = df['Debit'].apply(lambda x: x.replace(',', '') if isinstance(x, str) else x)
@@ -81,14 +99,47 @@ def make_categories(df):
 
     return df
 
+def reorder_df(df):
+    columns = list(df.columns)
+    order_list = [
+        "Date",
+        "Description",
+        "Source",
+        "Reward Points",
+        "Debit",
+        "Credit",
+        "Personal",
+        "Health",
+        "Gift",
+        "Travel",
+        "Food",
+        "Investment",
+    ]
+    to_del = set(columns) - set(order_list)
+    if(to_del):
+        log.critical(f"Deleting Columns: {to_del}")
+    df = df[order_list]
+    return df
+
+def make_credit_as_negative(df):
+    df["Credit"] = df["Credit"].apply(lambda x: -x if isinstance(x, float)and x>0 else x)
+    return df
+
 def run_all_post_processes(df):
     log.debug('Making Categories')
     df = make_categories(df)
     log.debug('Normalizing Dates')
     df = convert_dates_to_str(df)
-    log.debug('Cleaning zero credits')
-    df = clean_credit_zeros(df)
+    # log.debug("Cleaning credits zeros")
+    # df = clean_credit_zeros(df)
+    log.debug("Cleaning credits cr")
+    df = clean_credit_cr(df).copy()
+    log.debug("Making credits negative")
+    df = make_credit_as_negative(df)
+    log.debug("Reordering  DF")
+    df = reorder_df(df)
     # log.debug('Normalizing Debits')
     # df = convert_debit_as_float(df)
     
     return df
+

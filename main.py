@@ -41,7 +41,7 @@ def main(current_path_for_documents):
                 )
                 final_df = pd.concat([final_df, df], ignore_index=True)
 
-            elif "sbi card" in file:
+            elif "sbi card" in file or "sbi cc" in file:
                 log.info(f"Found SBI - Cashback CC statement: {file}")
                 df = sbi_cc.process_sbi_cashback_cc_statement(
                     current_path_for_documents + file
